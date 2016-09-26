@@ -53,22 +53,23 @@ angular.module('app')
 		['$scope', '$location', 'AuthService',
 		 function ($scope, $location, AuthService) {
 
-		     $scope.main.title = "Gis us your informations!";
+		     $scope.main.title = "Give us your informations!";
 
 		     $scope.register_form = function () {
 
 			 $scope.error = false;
 			 $scope.disabled = true;
-
+       console.log("sale enfoiré de merde qui pue la pisse de rat!");
 			 AuthService.register($scope.registerForm.username, $scope.registerForm.password)
 			     .then(function () {
+             console.log("bordel a cul");
 				 $location.path('/login');
 				 $scope.disabled = false;
 				 $scope.registerForm = {};
 			     })
 			     .catch(function () {
 				 $scope.error = true;
-				 $scope.errorMessage = "Heyyyy failed :(";
+				 $scope.errorMessage = "Nice try. Next time maybe...";
 				 $scope.disabled = false;
 				 $scope.registerForm = {};
 			     });

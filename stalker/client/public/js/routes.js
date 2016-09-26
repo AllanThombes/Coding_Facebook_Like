@@ -16,7 +16,7 @@ angular.module('app')
 		controller: "registerController as register",
 		access: {restricted: false}
 	    })
-      
+
         $locationProvider.html5Mode(true);
 
 }]);

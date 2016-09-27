@@ -30,6 +30,26 @@ router.get('/user/status', function(req, res) {
     });
 });
 
+/* User */
+router.get('/users', function(req, res, next) {
+  ctrlUsers.usersReadAll(req, res);
+});
+router.put('/users/:userid', function(req, res, next) {
+  ctrlUsers.usersUpdateOne(req, res);
+});
+router.delete('/users/:userid', function(req, res, next) {
+  ctrlUsers.usersDeleteOne(req, res);
+});
+router.get('/profile', function(req, res, next) {
+  ctrlUsers.usersShowOne(req, res);
+});
+router.post('/listfollow', function(req, res, next) {
+  ctrlUsers.userListFollow(req, res);
+});
+router.post('/listblock', function(req, res, next) {
+  ctrlUsers.userListBlock(req, res);
+});
+
 /* GET home page. */
 router.get('*', function(req, res, next) {
     res.status(200).sendFile(path.join(appRoot, "client", "index.html"));

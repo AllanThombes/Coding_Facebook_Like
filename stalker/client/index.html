@@ -23,7 +23,8 @@
         </div>
         <ul class="nav navbar-nav">
           <li ng-hide="loggedIn"><a href="/register">Register</a></li>
-	  <li ng-show="loggedIn"><a href="/logout">Logout</a></li>
+          <li ng-hide="loggedIn"><a href="/login">Login</a></li>
+	        <li ng-show="loggedIn"><a href="/logout">Logout</a></li>
         </ul>
       </div>
     </nav>

@@ -1,6 +1,6 @@
 angular.module('app')
     .controller('MainController', function($scope) {
-        this.title = 'Default';
+        this.title = 'Home';
     })
     .controller('homeController', ["$scope", "$http", "$location", "AuthService", function($scope, $http, $location, AuthService) {
         var _this = this;
@@ -59,17 +59,15 @@ angular.module('app')
 
 			 $scope.error = false;
 			 $scope.disabled = true;
-       console.log("sale enfoiré de merde qui pue la pisse de rat!");
-			 AuthService.register($scope.registerForm.username, $scope.registerForm.password)
+			 AuthService.register($scope.registerForm.username, $scope.registerForm.password, $scope.registerForm.lastname, $scope.registerForm.firstname, $scope.registerForm.address)
 			     .then(function () {
-             console.log("bordel a cul");
 				 $location.path('/login');
 				 $scope.disabled = false;
 				 $scope.registerForm = {};
 			     })
 			     .catch(function () {
 				 $scope.error = true;
-				 $scope.errorMessage = "Nice try. Next time maybe...";
+				 $scope.errorMessage = "Nice try. Maybe next time...";
 				 $scope.disabled = false;
 				 $scope.registerForm = {};
 			     });

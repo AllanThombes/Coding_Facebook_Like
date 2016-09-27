@@ -19,6 +19,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 mongoose.connect(config.db.mongodb);
+console.log("Connected to " + config.db.mongodb)
 
 var app = express();
 

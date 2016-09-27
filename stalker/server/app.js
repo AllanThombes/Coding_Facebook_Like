@@ -40,7 +40,8 @@ app.use(express.static(path.join(appRoot, "client", "public")));
 app.use(expressSession({
     secret: 'superSecretTttro;pbien687Tableafourrure',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie : { httpOnly: true, maxAge: 2419200000 }
 }));
 
 app.use(passport.initialize());

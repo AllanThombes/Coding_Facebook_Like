@@ -9,6 +9,7 @@ angular.module('app')
 	    })
 	    .when("/logout", {
 		controller: "logoutController",
+  templateUrl: "/views/login.html",
 		access: {restricted: true}
 	    })
 	    .when("/register", {

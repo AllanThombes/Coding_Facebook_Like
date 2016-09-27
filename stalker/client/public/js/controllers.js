@@ -40,14 +40,13 @@ angular.module('app')
 		 function ($scope, $location, AuthService) {
 
 		     $scope.logout = function () {
-
 			 AuthService.logout()
 			     .then(function () {
 				 $location.path('/login');
 			     });
 
 		     };
-
+         $scope.logout();
 		 }])
     .controller('registerController',
 		['$scope', '$location', 'AuthService',

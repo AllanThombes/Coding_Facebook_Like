@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require("path");
 var passport = require("passport");
 var ctrlAuth = require(path.join(appRoot, "server", "controllers", "authentication.js"));
+var ctrlUsers = require(path.join(appRoot, "server", "controllers", "users.js"));
 
 var User = require(path.join(appRoot, "server", "models", "user.js"));
 

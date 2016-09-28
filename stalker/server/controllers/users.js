@@ -1,23 +1,22 @@
 var path = require('path');
 var config = require(path.join(appRoot, "server", "config", "config.js"));
 var User = require(path.join(appRoot, "server", "models", "user.js"));
+var db = require(path.join(appRoot, "server", "models", "db.js"));
 var bodyParser = require('body-parser');
-
-var db = config.db.mongodb;
 
 
 function usersReadAll (req, res, err) {
   if(!err) {
     db.readUser( function (users){
       if (users){
-        res.status(200).send({users: users});
+        res.status(200).json(users);
       }
       else
-        res.status(404).send({errorMsg: "Everybody has disapear..."});
+        res.status(404).json({errorMsg: "Everybody has disapear..."});
     });
   }
   else {
-    res.status(404).send({errorMsg: "Lost in the road tu users..."});
+    res.status(404).json({errorMsg: "Lost in the road tu users..."});
   }
 }
 

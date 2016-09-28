@@ -6,17 +6,27 @@ angular.module('app')
         var _this = this;
 
 	if (!AuthService.isLoggedIn()) $location.path("/login");
-        $scope.main.title = 'Messages';
+        $scope.main.title = 'Users';
+        this.getUsers = function() {
+            $http.get('/users')
+                .then(function(res) {
+                    _this.users = res.data;
+                });
+        };
 
+        this.getUsers();
+
+        // $scope.main.title = 'Messages';
+        //
         // this.getMessages = function() {
-        //     $http.get('/messages')
+        //     $http.get('/api/messages')
         //         .then(function(res) {
         //             _this.messages = res.data;
         //         });
         // };
         //
         // this.getMessages();
-        //
+
         // this.removeMessage = function(id) {
         //     $http.delete('/messages/' + id)
         //     .then(function() {

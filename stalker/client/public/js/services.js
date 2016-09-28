@@ -56,6 +56,7 @@ angular.module("app")
 		  function logout(){
 		      var deferred = $q.defer();
 		      $rootScope.loggedIn = false;
+
 		      $http.get("/user/logout")
 			  .success(function(data){
 			      user = false;

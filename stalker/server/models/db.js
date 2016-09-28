@@ -15,8 +15,8 @@ function readUser(cb) {
   });
 }
 
-function updateUser(username, email, pwd, cb) {
-  user.update({username: username},{$set:{"username": username, "email": email, "password": pwd}} , function (err, usr) {
+function updateUser(username, email, pwd, lastname, firstname, address, cb) {
+  user.update({username: username},{$set:{"username": username, "email": email, "password": pwd, "lastname": lastname, "firstname": firstname, "address": address}} , function (err, usr) {
     if ( err || usr.length == 0) return cb(null);
     cb(usr);
   });

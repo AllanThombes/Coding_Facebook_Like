@@ -19,7 +19,7 @@ angular.module('app')
         $scope.main.title = 'Messages';
 
         this.getMessages = function() {
-            $http.get('/api/messages')
+            $http.get('/messages')
                 .then(function(res) {
                     _this.messages = res.data;
                 });
@@ -27,22 +27,22 @@ angular.module('app')
 
         this.getMessages();
 
-        // this.removeMessage = function(id) {
-        //     $http.delete('/messages/' + id)
-        //     .then(function() {
-        //         _this.getMessages();
-        //     });
-        // };
-        //
-        // this.sendMessage = function() {
-        //     if (!this.newmsg || !this.newmsg.title || !this.newmsg.text)
-        //         return ;
-        //     $http.post('/messages', this.newmsg)
-        //     .then(function() {
-        //         _this.getMessages();
-        //     });
-        //     this.newmsg = {};
-        // };
+        this.removeMessage = function(id) {
+            $http.delete('/messages/' + id)
+            .then(function() {
+                _this.getMessages();
+            });
+        };
+
+        this.sendMessage = function() {
+            if (!this.newmsg || !this.newmsg.title || !this.newmsg.text)
+                return ;
+            $http.post('/messages', this.newmsg)
+            .then(function() {
+                _this.getMessages();
+            });
+            this.newmsg = {};
+        };
 
     }])
     .controller('logoutController',

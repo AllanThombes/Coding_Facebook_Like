@@ -50,10 +50,10 @@ router.get('/profile', function(req, res, next) {
 router.post('/listfriend', function(req, res, next) {
   ctrlUsers.userListFollow(req, res);
 });
-router.post('/user/addfriend', function(req, res, next) {
+router.post('/user/addfriend/:id', function(req, res, next) {
   ctrlUsers.addfriend(req, res);
 });
-router.post('/user/removefriend', function(req, res, next) {
+router.post('/user/removefriend/:id', function(req, res, next) {
   ctrlUsers.unFriend(req, res);
 });
 // router.post('/listblock', function(req, res, next) {

@@ -12,6 +12,20 @@ function usersReadAll (req, res, err) {
   });
 }
 
+function usersAskFriend (req, res, err) {
+  User.aggregate([{$lookup: {from: "users", localField: "_id", foreignField: "askFriends", as: "asking"}}, {$match: { "asking._id": id }}], function (err, asking) {
+      if (err || !asking) return callback(null);
+      return callback(asking);
+    });
+}
+
+function usersFindFriend (req, res, err) {
+  User.aggregate([{$lookup: {from: "users", localField: "_id", foreignField: "friends", as: "friendlings"}}, {$match: { "friendlings._id": id }}], function (err, friendlings) {
+      if (err || !friendlings) return callback(null);
+      return callback(friendlings);
+    });
+}
+
 function usersShowOne (req, res, err) {
   var id = mongoose.Types.ObjectId(req.params.id);
   User.find({_id: id}, function(err, user) {
@@ -22,7 +36,8 @@ function usersShowOne (req, res, err) {
 function usersUpdateOne (req, res, err) {
   var id = mongoose.Types.ObjectId(req.params.id);
   if (req.user.id == req.params.id) {
-    User.find({_id: id}, function(err, messages) {
+    User.update({_id: id}, {username: req.body.username, email: req.body.email, firstname: req.body.firstname,
+       lastname: req.body.lastname, address: req.body.address}, function(err) {
       (err ? res.send(err) : res.json(messages));
     });
   }
@@ -43,10 +58,18 @@ function usersDeleteOne (req, res, err) {
   }
 }
 
+function askFriend (req, res, err) {
+  var id = mongoose.Types.ObjectId(req.user.id);
+    var idfriend = mongoose.Types.ObjectId(req.params.id);
+  User.update({"_id": id}, {$push: {"askFriends": idfriend}}, function (err) {
+    (err ? res.send(err) : res.status(200).send());
+  });
+}
+
 function addFriend (req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
     var idfriend = mongoose.Types.ObjectId(req.params.id);
-  User.update({"_id": id}, {$push: {"friend": idfriend}}, function (err) {
+  User.update({"_id": id}, {$push: {"friends": idfriend}}, function (err) {
     (err ? res.send(err) : res.status(200).send());
   });
 }
@@ -60,6 +83,7 @@ function unFriend (req, res, err) {
 }
 
 
+module.exports.usersReadAll = usersReadAll;
 module.exports.usersReadAll = usersReadAll;
 module.exports.usersUpdateOne = usersUpdateOne;
 module.exports.usersDeleteOne = usersDeleteOne;

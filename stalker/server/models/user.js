@@ -10,7 +10,7 @@ var User = new Schema({
     firstname: {type: String, required: true},
     address: {type: String, required: true},
     friends: {type: [Schema.Types.ObjectId]},
-    foes: {type: [Schema.Types.ObjectId]}
+    askFriends: {type: [Schema.Types.ObjectId]}
 });
 
 User.plugin(passportLocalMongoose);

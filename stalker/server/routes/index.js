@@ -50,6 +50,9 @@ router.get('/profile', function(req, res, next) {
 router.post('/listfriend', function(req, res, next) {
   ctrlUsers.userListFollow(req, res);
 });
+router.post('/user/askfriend/:id', function(req, res, next) {
+  ctrlUsers.addfriend(req, res);
+});
 router.post('/user/addfriend/:id', function(req, res, next) {
   ctrlUsers.addfriend(req, res);
 });

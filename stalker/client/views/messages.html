@@ -12,7 +12,11 @@
             <button class="btn" ng-click="msg.removeMessage(message._id)">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </button>
+            <button class="btn" ng-click="msg.editMessage(message._id)">
+                <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            </button>
         </td>
+
     </tr>
 </table>
 <form ng-submit="msg.sendMessage()">

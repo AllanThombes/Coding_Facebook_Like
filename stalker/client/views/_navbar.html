@@ -1,0 +1,14 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">
+        Home
+      </a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li ng-hide="loggedIn"><a href="/register">Register</a></li>
+      <li ng-hide="loggedIn"><a href="/login">Login</a></li>
+      <li ng-show="loggedIn"><a href="/logout">Logout</a></li>
+    </ul>
+  </div>
+</nav>

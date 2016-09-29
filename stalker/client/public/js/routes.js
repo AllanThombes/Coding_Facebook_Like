@@ -3,8 +3,8 @@ angular.module('app')
 
   $routeProvider
   .when("/", {
-    templateUrl: "/views/users.html",
-    controller: "homeController as usr",
+    templateUrl: "/views/messages.html",
+    controller: "homeController as msg",
     access: {restricted: true}
   })
   .when("/login", {

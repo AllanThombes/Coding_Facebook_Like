@@ -18,6 +18,19 @@ function createOne(req, res, err) {
   });
 }
 
+function updateOne(req, res, err) {
+  var id = mongoose.Types.ObjectId(req.params.id)
+  Message.findOne({_id: id}, function(err, message) {
+    if (err || req.user.id != message.authorId) {
+      res.status(500).send(err);
+    }
+    else
+      Message.update({_id: id}, {title: req.body.title, text: req.body.text, updatedAt: Date.now}, function(err) {
+        (err ? res.status(500).send(err) : res.status(200).send());
+      });
+  });
+}
+
 function deleteOne(req, res, err) {
   var id = mongoose.Types.ObjectId(req.params.id)
   Message.findOne({_id: id}, function(err, message) {

@@ -67,6 +67,9 @@ router.get('/messages', function(req, res) {
 router.post('/messages', function(req, res) {
     ctrlMsgs.createOne(req, res);
 });
+router.post('/messages/:id', function(req, res) {
+    ctrlMsgs.createOne(req, res);
+});
 router.delete('/messages/:id', function(req, res) {
     ctrlMsgs.deleteOne(req, res);
 });

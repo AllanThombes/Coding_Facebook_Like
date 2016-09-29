@@ -8,7 +8,9 @@ var User = new Schema({
     password: {type: String, required: true},
     lastname: {type: String, required: true},
     firstname: {type: String, required: true},
-    address: {type: String, required: true}
+    address: {type: String, required: true},
+    friends: {type: [Schema.Types.ObjectId]},
+    foes: {type: [Schema.Types.ObjectId]}
 });
 
 User.plugin(passportLocalMongoose);

@@ -11,14 +11,19 @@ function readAll(req, res, err) {
 }
 
 function createOne(req, res, err) {
-  Message.create(req.body, function(err) {
+  Message.create({title: req.body.title, text: req.body.text, authorId: req.user.id}, function(err) {
       (err ? res.send(err) : res.status(200).send());
   });
 }
 
 function deleteOne(req, res, err) {
-  Message.remove({_id: req.params.id}, function(err) {
-      (err ? res.send(err) : res.status(200).send());
+  Message.find({_id: req.params.id}, function(err, message) {
+    if (err || req.user.id != message.authorId)
+      res.send(err);
+    else
+      Message.remove({_id: req.params.id}, function(err) {
+        (err ? res.send(err) : res.status(200).send());
+      });
   });
 }
 

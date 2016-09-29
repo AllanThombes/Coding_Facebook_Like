@@ -8,6 +8,8 @@ var ctrlMsgs = require(path.join(appRoot, "server", "controllers", "messages.js"
 
 var User = require(path.join(appRoot, "server", "models", "user.js"));
 
+
+/* authentication */
 router.post("/user/register", function(req, res){
   ctrlAuth.register(req, res);
 });
@@ -45,22 +47,26 @@ router.delete('/users/:userid', function(req, res, next) {
 router.get('/profile', function(req, res, next) {
   ctrlUsers.usersShowOne(req, res);
 });
-router.post('/listfollow', function(req, res, next) {
+router.post('/listfriend', function(req, res, next) {
   ctrlUsers.userListFollow(req, res);
 });
-router.post('/listblock', function(req, res, next) {
-  ctrlUsers.userListBlock(req, res);
+router.post('/user/addfriend', function(req, res, next) {
+  ctrlUsers.addfriend(req, res);
 });
+router.post('/user/removefriend', function(req, res, next) {
+  ctrlUsers.unFriend(req, res);
+});
+// router.post('/listblock', function(req, res, next) {
+//   ctrlUsers.userListBlock(req, res);
+// });
 
 /* messages */
 router.get('/messages', function(req, res) {
     ctrlMsgs.readAll(req, res);
 });
-
 router.post('/messages', function(req, res) {
     ctrlMsgs.createOne(req, res);
 });
-
 router.delete('/messages/:id', function(req, res) {
     ctrlMsgs.deleteOne(req, res);
 });

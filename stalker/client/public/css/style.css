@@ -1,8 +1,80 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.navbar-default {
+  font-family: 'Karla', sans-serif;
+  background-color: #0B3954;
+  border-color: #E7E7E7;
+}
+
+/* title */
+.navbar-default .navbar-brand {
+    font-family: 'Baloo Da', cursive;
+    color: #FFFFFF;
+  }
+
+.navbar-default .navbar-nav > li > a {
+  color: #92eb6b;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+  color: #ffe600;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: rgb(22, 108, 255);
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+     color: rgb(255, 68, 9);
+}
+
+.button {
+  border-radius: 4px;
+  background-color: #0E3953;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 150%;
+  padding-top: -40px;
+  height: 2.5em;
+  width: 33%;
+  transition: all 0.1s;
+  cursor: pointer;
+  margin: 5px;
+  margin-right: 5px;
+  margin-left: 33%;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.3s;
+}
+
+.button span:after {
+  content: '🐣';
+  position: absolute;
+  opacity: 0;
+  top: 2px;
+  right: -92px;
+  transition: 0.3s;
+}
+
+.button:hover span {
+  color: #000000;
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
 }

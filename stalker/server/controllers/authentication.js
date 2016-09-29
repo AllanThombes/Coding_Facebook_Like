@@ -3,7 +3,6 @@ var path = require('path');
 var config = require(path.join(appRoot, "server", "config", "config.js"));
 var User = require(path.join(appRoot, "server", "models", "user.js"));
 
-
 var db = config.db.mongodb;
 
 function register(req, res, err) {

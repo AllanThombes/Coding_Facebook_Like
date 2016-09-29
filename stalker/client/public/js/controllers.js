@@ -34,6 +34,13 @@ angular.module('app')
             });
         };
 
+        this.editMessage = function(id) {
+            $http.post('/messages/' + id)
+            .then(function() {
+                _this.getMessages();
+            });
+        };
+
         this.sendMessage = function() {
             if (!this.newmsg || !this.newmsg.title || !this.newmsg.text)
                 return ;

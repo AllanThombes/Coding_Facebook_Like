@@ -82,7 +82,6 @@ function unFriend (req, res, err) {
   });
 }
 
-
 module.exports.usersReadAll = usersReadAll;
 module.exports.usersReadAll = usersReadAll;
 module.exports.usersUpdateOne = usersUpdateOne;

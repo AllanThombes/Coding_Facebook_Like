@@ -70,11 +70,11 @@ angular.module("app")
 		      return deferred.promise;
 		  }
 
-		  function register(username, password, lastname, firstname, address){
+		  function register(username, email, password, lastname, firstname, address){
 		      var deferred = $q.defer();
 
 		      $http.post("/user/register",
-				 {username: username, password: password, lastname: lastname, firstname: firstname, address: address})
+				 {username: username, email: email, password: password, lastname: lastname, firstname: firstname, address: address})
 			  .success(function(data, status){
 			      if (status == 200 && data.status){
 				  $rootScope.loggedIn = true;

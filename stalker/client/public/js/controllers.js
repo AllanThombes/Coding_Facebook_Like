@@ -6,26 +6,26 @@ angular.module('app')
         var _this = this;
 
 	if (!AuthService.isLoggedIn()) $location.path("/login");
-        $scope.main.title = 'Users';
-        this.getUsers = function() {
-            $http.get('/users')
-                .then(function(res) {
-                    _this.users = res.data;
-                });
-        };
-
-        this.getUsers();
-
-        // $scope.main.title = 'Messages';
-        //
-        // this.getMessages = function() {
-        //     $http.get('/api/messages')
+        // $scope.main.title = 'Users';
+        // this.getUsers = function() {
+        //     $http.get('/users')
         //         .then(function(res) {
-        //             _this.messages = res.data;
+        //             _this.users = res.data;
         //         });
         // };
         //
-        // this.getMessages();
+        // this.getUsers();
+
+        $scope.main.title = 'Messages';
+
+        this.getMessages = function() {
+            $http.get('/api/messages')
+                .then(function(res) {
+                    _this.messages = res.data;
+                });
+        };
+
+        this.getMessages();
 
         // this.removeMessage = function(id) {
         //     $http.delete('/messages/' + id)
@@ -68,7 +68,7 @@ angular.module('app')
 
 			 $scope.error = false;
 			 $scope.disabled = true;
-			 AuthService.register($scope.registerForm.username, $scope.registerForm.password, $scope.registerForm.lastname, $scope.registerForm.firstname, $scope.registerForm.address)
+			 AuthService.register($scope.registerForm.username, $scope.registerForm.email, $scope.registerForm.password, $scope.registerForm.lastname, $scope.registerForm.firstname, $scope.registerForm.address)
 			     .then(function () {
 				 $location.path('/login');
 				 $scope.disabled = false;
@@ -84,7 +84,6 @@ angular.module('app')
 		     };
 
 		 }]);
-
 
 angular.module('app')
     .run(function ($rootScope, $location, $route, AuthService) {

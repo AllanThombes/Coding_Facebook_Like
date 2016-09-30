@@ -13,22 +13,26 @@ function usersReadAll (req, res, err) {
 }
 
 function usersAskFriend (req, res, err) {
+  var id = mongoose.Types.ObjectId(req.user.id);
+  console.log(id);
   User.aggregate([{$lookup: {from: "users", localField: "_id", foreignField: "askFriends", as: "asking"}}, {$match: { "asking._id": id }}], function (err, asking) {
-      if (err || !asking) return callback(null);
-      return callback(asking);
+    console.log("err " + err + " datas "+ asking);
+    console.log(asking);
+    (err ? res.send(err) : res.json(asking));
     });
 }
 
 function usersFindFriend (req, res, err) {
+  var id = mongoose.Types.ObjectId(req.user.id);
   User.aggregate([{$lookup: {from: "users", localField: "_id", foreignField: "friends", as: "friendlings"}}, {$match: { "friendlings._id": id }}], function (err, friendlings) {
-      if (err || !friendlings) return callback(null);
-      return callback(friendlings);
+    console.log("err " + err + " datas "+ friendlings);
+      (err ? res.send(err) : res.json(friendlings));
     });
 }
 
 function usersShowOne (req, res, err) {
-  var id = mongoose.Types.ObjectId(req.params.id);
-  User.find({_id: id}, function(err, user) {
+  var id = mongoose.Types.ObjectId(req.user.id);
+  User.findOne({_id: id}, function(err, user) {
     (err ? res.send(err) : res.json(user));
   });
 }
@@ -83,7 +87,10 @@ function unFriend (req, res, err) {
 }
 
 module.exports.usersReadAll = usersReadAll;
-module.exports.usersReadAll = usersReadAll;
+module.exports.usersAskFriend = usersAskFriend;
+module.exports.usersFindFriend = usersFindFriend;
+module.exports.askFriend = askFriend;
+module.exports.addFriend = addFriend;
 module.exports.usersUpdateOne = usersUpdateOne;
 module.exports.usersDeleteOne = usersDeleteOne;
 module.exports.usersShowOne = usersShowOne;

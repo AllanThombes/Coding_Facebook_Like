@@ -47,11 +47,14 @@ router.delete('/users/:userid', function(req, res, next) {
 router.get('/profile', function(req, res, next) {
   ctrlUsers.usersShowOne(req, res);
 });
-router.post('/listfriend', function(req, res, next) {
-  ctrlUsers.userListFollow(req, res);
+router.get('/listfriend', function(req, res, next) {
+  ctrlUsers.usersFindFriend(req, res);
+});
+router.get('/listasking', function(req, res, next) {
+  ctrlUsers.usersAskFriend(req, res);
 });
 router.post('/user/askfriend/:id', function(req, res, next) {
-  ctrlUsers.addfriend(req, res);
+  ctrlUsers.askfriend(req, res);
 });
 router.post('/user/addfriend/:id', function(req, res, next) {
   ctrlUsers.addfriend(req, res);

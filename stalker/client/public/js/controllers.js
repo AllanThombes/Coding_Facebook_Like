@@ -6,15 +6,6 @@ angular.module('app')
         var _this = this;
 
 	if (!AuthService.isLoggedIn()) $location.path("/login");
-        // $scope.main.title = 'Users';
-        // this.getUsers = function() {
-        //     $http.get('/users')
-        //         .then(function(res) {
-        //             _this.users = res.data;
-        //         });
-        // };
-        //
-        // this.getUsers();
 
         $scope.main.title = 'Messages';
 
@@ -52,6 +43,40 @@ angular.module('app')
         };
 
     }])
+    .controller('profileController', ["$scope", "$http", "$location", "AuthService", function($scope, $http, $location, AuthService) {
+        var _this = this;
+    if (!AuthService.isLoggedIn()) $location.path("/login");
+          $scope.main.title = 'Profile';
+
+          this.getUser = function() {
+              $http.get('/profile')
+                  .then(function(res) {
+                    console.log(res.data)
+                      _this.user = res.data;
+                  });
+          };
+
+          this.getUser();
+
+          this.getFriends = function() {
+              $http.get('/listfriend')
+                  .then(function(res) {
+                      _this.listFriends = res.data;
+                  });
+          };
+
+          this.getFriends();
+
+          this.getAskings = function() {
+              $http.get('/listasking')
+                  .then(function(res) {
+                      _this.listAskingFriends = res.data;
+                  });
+          };
+
+          this.getAskings();
+
+      }])
     .controller('logoutController',
 		['$scope', '$location', 'AuthService',
 		 function ($scope, $location, AuthService) {

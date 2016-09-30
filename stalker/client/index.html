@@ -29,9 +29,10 @@
    </div>
    <div class="collapse navbar-collapse" id="myNavbar">
      <ul class="nav navbar-nav">
-       <li class="active"><a href="#">Home</a></li>
+       <!-- <li class="active"><a href="/">Home</a></li> -->
        <li class="dropdown">
          <ul class="dropdown-menu">
+           <li ng-show="loggedIn"><a href="/profile">Profile</a></li>
            <li ng-hide="loggedIn"><a href="/register">Register</a></li>
            <li ng-hide="loggedIn"><a href="/login">Login</a></li>
            <li ng-show="loggedIn"><a href="/logout">Logout</a></li>
@@ -39,6 +40,7 @@
        </li>
      </ul>
      <ul class="nav navbar-nav navbar-right">
+       <li ng-show="loggedIn"><a href="/profile"><span class="glyphicon glyphicon-home"></span> Profile</a></li>
        <li ng-hide="loggedIn"><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
        <li ng-hide="loggedIn"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
        <li ng-show="loggedIn"><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>

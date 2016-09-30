@@ -7,6 +7,11 @@ angular.module('app')
     controller: "homeController as msg",
     access: {restricted: true}
   })
+  .when("/profile", {
+    templateUrl: "/views/profile.html",
+    controller: "profileController as profile",
+    access: {restricted: true}
+  })
   .when("/login", {
     templateUrl: "/views/login.html",
     controller: "loginController as login",

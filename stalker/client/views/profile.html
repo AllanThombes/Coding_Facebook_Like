@@ -1,0 +1,38 @@
+<h1>{{ profile.user.username }}</h1>
+
+<div class="col-lg-3">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h3 class="panel-title">Friends :</h3>
+    </div>
+    <ul class="list-group">
+      <li ng-repeat="friend in profile.listFriends" class="list-group-item">{{ friend.username }}</li>
+    </ul>
+  </div>
+  <div class="panel panel-warning">
+    <div class="panel-heading">
+      <h3 class="panel-title">Notifications :</h3>
+    </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Asking for friendship :</h3>
+      </div>
+      <ul class="list-group">
+        <li ng-repeat="fan in profile.listAskingFriends" class="list-group-item">{{ fan.username }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="col-lg-5">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Who am I :</h3>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item">{{ profile.user.firstname }}</li>
+      <li class="list-group-item">{{ profile.user.lastname }}</li>
+      <li class="list-group-item">{{ profile.user.address }}</li>
+    </ul>
+  </div>
+
+</div>

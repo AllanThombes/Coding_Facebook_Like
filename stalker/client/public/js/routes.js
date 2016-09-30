@@ -8,9 +8,9 @@ angular.module('app')
     access: {restricted: true}
   })
   .when("/profile", {
-    templateUrl: "/views/profile.html",
     controller: "profileController as profile",
-    access: {restricted: false}
+      templateUrl: "/views/profile.html",
+    access: {restricted: true}
   })
   .when("/login", {
     templateUrl: "/views/login.html",
@@ -25,6 +25,11 @@ angular.module('app')
   .when("/register", {
     templateUrl: "/views/register.html",
     controller: "registerController as register",
+    access: {restricted: false}
+  })
+  .otherwise("/login", {
+    templateUrl: "/views/login.html",
+    controller: "loginController as login",
     access: {restricted: false}
   })
 

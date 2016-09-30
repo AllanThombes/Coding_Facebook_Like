@@ -1,140 +1,170 @@
 angular.module('app')
-    .controller('MainController', function($scope) {
-        this.title = 'Home';
-    })
-    .controller('homeController', ["$scope", "$http", "$location", "AuthService", function($scope, $http, $location, AuthService) {
-        var _this = this;
+.controller('MainController', function($scope) {
+  this.title = 'Home';
+})
+.controller('homeController', ["$scope", "$http", "$location", "AuthService", function($scope, $http, $location, AuthService) {
+  var _this = this;
 
-	if (!AuthService.isLoggedIn()) $location.path("/login");
+  if (!AuthService.isLoggedIn()) $location.path("/login");
 
-        $scope.main.title = 'Messages';
+  $scope.main.title = 'Messages';
 
-        this.getMessages = function() {
-            $http.get('/messages')
-                .then(function(res) {
-                    _this.messages = res.data;
-                });
-        };
+  this.getMessages = function() {
+    $http.get('/messages/messages')
+    .then(function(res) {
+      _this.messages = res.data;
+      console.log(res.data);
+    });
+  };
 
-        this.getMessages();
+  this.getMessages();
 
-        this.removeMessage = function(id) {
-            $http.delete('/messages/' + id)
-            .then(function() {
-                _this.getMessages();
-            });
-        };
+  this.removeMessage = function(id) {
+    $http.delete('/messages/messages/' + id)
+    .then(function() {
+      _this.getMessages();
+    });
+  };
 
-        this.editMessage = function(id) {
-            $http.post('/messages/' + id)
-            .then(function() {
-                _this.getMessages();
-            });
-        };
+  this.editMessage = function(id) {
+    $http.post('/messages/messages/' + id)
+    .then(function() {
+      _this.getMessages();
+    });
+  };
 
-        this.sendMessage = function() {
-            if (!this.newmsg || !this.newmsg.title || !this.newmsg.text)
-                return ;
-            $http.post('/messages', this.newmsg)
-            .then(function() {
-                _this.getMessages();
-            });
-            this.newmsg = {};
-        };
+  this.sendMessage = function() {
+    if (!this.newmsg || !this.newmsg.text)
+    return ;
+    $http.post('/messages/messages', this.newmsg)
+    .then(function() {
+      _this.getMessages();
+    });
+    this.newmsg = {};
+  };
 
-    }])
-    .controller('profileController', ["$scope", "$http", "$location", "AuthService", function($scope, $http, $location, AuthService) {
-        var _this = this;
-    if (!AuthService.isLoggedIn()) $location.path("/login");
-          $scope.main.title = 'Profile';
+}])
+.controller('profileController', ["$scope", "$http", "$location", "AuthService", function($scope, $http, $location, AuthService) {
+  var _this = this;
+  if (!AuthService.isLoggedIn()) $location.path("/login");
+  $scope.main.title = 'Profile';
 
-          this.getUser = function() {
-              $http.get('/profile')
-                  .then(function(res) {
-                      _this.user = res.data;
-                  });
-          };
+  this.getUser = function() {
+    $http.get('/users/userprofile')
+    .then(function(res) {
+      _this.user = res.data;
+    });
+  };
 
-          this.getUser();
+  this.getUser();
 
-          this.getFriends = function() {
-              $http.get('/listfriend')
-                  .then(function(res) {
-                      _this.listFriends = res.data;
-                  });
-          };
+  this.getFriends = function() {
+    $http.get('/users/listfriend')
+    .then(function(res) {
+      _this.listFriends = res.data;
+    });
+  };
 
-          this.getFriends();
+  this.getFriends();
 
-          this.getAskings = function() {
-              $http.get('/listasking')
-                  .then(function(res) {
-                      _this.listAskingFriends = res.data;
-                  });
-          };
+  this.getAskings = function() {
+    $http.get('/users/listasking')
+    .then(function(res) {
+      _this.listAskingFriends = res.data;
+    });
+  };
 
-          this.getAskings();
-          
-          this.getMessages = function() {
-              $http.get('/messages')
-                  .then(function(res) {
-                      _this.messages = res.data;
-                  });
-          };
+  this.getAskings();
 
-          this.getMessages();
+  this.getMessages = function() {
+    $http.get('/messages/messages')
+    .then(function(res) {
+      _this.messages = res.data;
+    });
+  };
 
-      }])
-    .controller('logoutController',
-		['$scope', '$location', 'AuthService',
-		 function ($scope, $location, AuthService) {
+  this.getMessages();
 
-		     $scope.logout = function () {
-			 AuthService.logout()
-			     .then(function () {
-				 $location.path('/login');
-			     });
+  this.removeMessage = function(id) {
+    $http.delete('/messages/messages/' + id)
+    .then(function() {
+      _this.getMessages();
+    });
+  };
 
-		     };
-         $scope.logout();
-		 }])
-    .controller('registerController',
-		['$scope', '$location', 'AuthService',
-		 function ($scope, $location, AuthService) {
+  this.editMessage = function(id) {
+    $http.post('/messages/messages/' + id)
+    .then(function() {
+      _this.getMessages();
+    });
+  };
 
-		     $scope.main.title = "Give us your informations!";
+  this.sendMessage = function() {
+    if (!this.newmsg || !this.newmsg.text)
+    return ;
+    $http.post('/messages/messages', this.newmsg)
+    .then(function() {
+      _this.getMessages();
+    });
+    this.newmsg = {};
+  };
 
-		     $scope.register_form = function () {
+}])
+.controller('logoutController',
+['$scope', '$location', 'AuthService',
+function ($scope, $location, AuthService) {
 
-			 $scope.error = false;
-			 $scope.disabled = true;
-			 AuthService.register($scope.registerForm.username, $scope.registerForm.email, $scope.registerForm.password, $scope.registerForm.lastname, $scope.registerForm.firstname, $scope.registerForm.address)
-			     .then(function () {
-				 $location.path('/login');
-				 $scope.disabled = false;
-				 $scope.registerForm = {};
-			     })
-			     .catch(function () {
-				 $scope.error = true;
-				 $scope.errorMessage = "Nice try. Maybe next time...";
-				 $scope.disabled = false;
-				 $scope.registerForm = {};
-			     });
+  $scope.logout = function () {
+    AuthService.logout()
+    .then(function () {
+      $location.path('/login');
+    });
 
-		     };
+  };
+  $scope.logout();
+}])
+.controller('registerController',
+['$scope', '$location', 'AuthService',
+function ($scope, $location, AuthService) {
 
-		 }]);
+  $scope.main.title = "Give us your informations!";
+
+  $scope.register_form = function () {
+    if ($scope.registerForm.password != $scope.registerForm.password_confirmation) {
+      $scope.error = true;
+      $scope.errorMessage = "Password and password confirmation don't match.";
+      $scope.disabled = false;
+    }
+    else {
+      $scope.error = false;
+      $scope.disabled = true;
+      AuthService.register($scope.registerForm.username, $scope.registerForm.email, $scope.registerForm.password, $scope.registerForm.lastname, $scope.registerForm.firstname, $scope.registerForm.address)
+      .then(function () {
+        $location.path('/login');
+        $scope.disabled = false;
+        $scope.registerForm = {};
+      })
+      .catch(function () {
+        $scope.error = true;
+        $scope.errorMessage = "Nice try. Maybe next time...";
+        $scope.disabled = false;
+        $scope.registerForm = {};
+      });
+    }
+  };
+
+}]);
 
 angular.module('app')
-    .run(function ($rootScope, $location, $route, AuthService) {
-	$rootScope.$on('$routeChangeStart',
-		       function (event, next, current) {
-			   AuthService.getUserStatus()
-		               .then(function(){
-			           if (next.access.restricted && !AuthService.isLoggedIn()){
-				       $location.path('/login');
-				       $route.reload();
-				   }
-			       });
-		       });
+.run(function ($rootScope, $location, $route, AuthService) {
+  $rootScope.$on('$routeChangeStart',
+  function (event, next, current) {
+    AuthService.getUserStatus()
+    .then(function(){
+      if (next.access.restricted && !AuthService.isLoggedIn()){
+        $location.path('/login');
+        $route.reload();
+      }
     });
+  });
+});

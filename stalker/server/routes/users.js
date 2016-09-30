@@ -1,47 +1,38 @@
 var express = require('express');
-var userRouter = express.Router();
+var router = express.Router();
 var path = require("path");
 var passport = require("passport");
 
 var User = require(path.join(appRoot, "server", "models", "user.js"));
+var ctrlUsers = require(path.join(appRoot, "server", "controllers", "users.js"));
 
-userRouter.post("/user/register", function(req, res){
-    User.register(new User({username: req.body.username}), req.body.password, function(err, account) {
-	if (err) return res.status(500).json({err: err});
-
-	passport.authenticate('local')(req, res, function(){
-	    return res.status(200).json({status: "Registration successful!"});
-	});
-    });
+/* User */
+router.get('/users', function(req, res, next) {
+  ctrlUsers.usersReadAll(req, res);
+});
+router.put('/users/:userid', function(req, res, next) {
+  ctrlUsers.usersUpdateOne(req, res);
+});
+router.delete('/users/:userid', function(req, res, next) {
+  ctrlUsers.usersDeleteOne(req, res);
+});
+router.get('/userprofile', function(req, res, next) {
+  ctrlUsers.usersShowOne(req, res);
+});
+router.get('/listfriend', function(req, res, next) {
+  ctrlUsers.usersFindFriend(req, res);
+});
+router.get('/listasking', function(req, res, next) {
+  ctrlUsers.usersAskFriend(req, res);
+});
+router.post('/user/askfriend/:id', function(req, res, next) {
+  ctrlUsers.askfriend(req, res);
+});
+router.post('/user/addfriend/:id', function(req, res, next) {
+  ctrlUsers.addfriend(req, res);
+});
+router.post('/user/removefriend/:id', function(req, res, next) {
+  ctrlUsers.unFriend(req, res);
 });
 
-userRouter.post("/user/login", function(req, res, next) {
-    passport.authenticate('local', function(err, user, info){
-	if (err) return next(err);
-	if (!user) return res.status(401).json({err: info});
-
-	req.logIn(user, function(err) {
-	    if (err) return res.status(500).json({err: "Could not log in user"});
-	    res.status(200).json({status: "Welcome on board, keep your arms in the site during the navigation!"});
-
-	});
-    })(req, res, next);
-});
-
-userRouter.get('/user/logout', function(req, res){
-    req.logout();
-    res.status(200).json({status: "Requiescat in Pace!"});
-});
-
-userRouter.get('/user/status', function(req, res) {
-    if (!req.isAuthenticated()) {
-	return res.status(200).json({
-	    status: false
-	});
-    }
-    res.status(200).json({
-	status: true
-    });
-});
-
-module.exports = userRouter;
+module.exports = router;

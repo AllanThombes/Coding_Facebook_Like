@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Baloo+Da|Karla" rel="stylesheet">
   <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -39,11 +41,11 @@
          </ul>
        </li>
      </ul>
-     <ul class="nav navbar-nav navbar-right">
-       <li ng-show="loggedIn"><a href="/profile"><span class="glyphicon glyphicon-home"></span> Profile</a></li>
-       <li ng-hide="loggedIn"><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-       <li ng-hide="loggedIn"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-       <li ng-show="loggedIn"><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+     <ul  id="nav-mobile" class="right hide-on-med-and-down">
+       <li ng-show="loggedIn"><a href="/profile"><i class="tiny material-icons left">perm_identity</i> Profile</a></li>
+       <li ng-hide="loggedIn"><a href="/register"><i class="tiny material-icons left">assignment_ind</i>  Sign Up</a></li>
+       <li ng-hide="loggedIn"><a href="/login"><i class="tiny material-icons left">input</i> Login</a></li>
+       <li ng-show="loggedIn"><a href="/logout"><i class="tiny material-icons left">input</i> Logout</a></li>
 
      </ul>
    </div>
@@ -91,6 +93,8 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+ <!-- Compiled and minified JavaScript -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
  <!-- !JS Includes -->
 </body>
 

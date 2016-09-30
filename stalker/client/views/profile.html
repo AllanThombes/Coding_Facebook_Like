@@ -6,7 +6,7 @@
       <h3 class="panel-title">Friends :</h3>
     </div>
     <ul class="list-group">
-      <li ng-repeat="friend in profile.listFriends" class="list-group-item">{{ friend.username }}</li>
+      <li ng-repeat="friend in profile.listFriends" class="list-group-item"><div class="chip">{{ friend.username }}</div><div class="chip">Un-friend</div></li>
     </ul>
   </div>
   <div class="panel panel-warning">
@@ -18,21 +18,54 @@
         <h3 class="panel-title">Asking for friendship :</h3>
       </div>
       <ul class="list-group">
-        <li ng-repeat="fan in profile.listAskingFriends" class="list-group-item">{{ fan.username }}</li>
+        <li ng-repeat="fan in profile.listAskingFriends" class="list-group-item"><div class="chip">{{ fan.username }}</div>
+        <div class="chip">Accept</div>
+        </li>
       </ul>
     </div>
   </div>
 </div>
-<div class="col-lg-5">
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h3 class="panel-title">Who am I :</h3>
+<div class="col s12 m7">
+    <h3 class="panel-title">Who am I :</h3>
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="http://lorempixel.com/100/190/nature/6">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>
+            <ul class="list-group">
+              <li class="list-group-item">{{ profile.user.firstname }}</li>
+              <li class="list-group-item">{{ profile.user.lastname }}</li>
+              <li class="list-group-item">{{ profile.user.address }}</li>
+            </ul>
+          </p>
+        </div>
+        <div class="card-action">
+          <a href="#">This could be a link</a>
+        </div>
+      </div>
     </div>
-    <ul class="list-group">
-      <li class="list-group-item">{{ profile.user.firstname }}</li>
-      <li class="list-group-item">{{ profile.user.lastname }}</li>
-      <li class="list-group-item">{{ profile.user.address }}</li>
-    </ul>
-  </div>
+</div>
+<div class="col s9 m7">
+  <table class="table table-bordered">
+      <tr>
+          <th>Title</th>
+          <th>Text</th>
+          <th>Actions</th>
+      </tr>
+      <tr ng-repeat="message in profile.messages">
+          <td>{{message.title}}</td>
+          <td>{{message.text}}</td>
+          <td>
+              <button class="btn" ng-click="profile.removeMessage(message._id)">
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </button>
+              <button class="btn" ng-click="profile.editMessage(message._id)">
+                  <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+              </button>
+          </td>
 
+      </tr>
+  </table>
 </div>

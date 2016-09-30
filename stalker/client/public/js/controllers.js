@@ -51,7 +51,6 @@ angular.module('app')
           this.getUser = function() {
               $http.get('/profile')
                   .then(function(res) {
-                    console.log(res.data)
                       _this.user = res.data;
                   });
           };
@@ -75,6 +74,15 @@ angular.module('app')
           };
 
           this.getAskings();
+          
+          this.getMessages = function() {
+              $http.get('/messages')
+                  .then(function(res) {
+                      _this.messages = res.data;
+                  });
+          };
+
+          this.getMessages();
 
       }])
     .controller('logoutController',

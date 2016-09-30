@@ -10,7 +10,7 @@ angular.module('app')
   .when("/profile", {
     templateUrl: "/views/profile.html",
     controller: "profileController as profile",
-    access: {restricted: true}
+    access: {restricted: false}
   })
   .when("/login", {
     templateUrl: "/views/login.html",

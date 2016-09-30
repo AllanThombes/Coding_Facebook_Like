@@ -5,12 +5,13 @@ var Message = require(path.join(appRoot, "server", "models", "message.js"));
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-function readAll(req, res, err) {
-  var id = mongoose.Types.ObjectId(req.user.id);
-  console.log(User.friends);
-  Message.find({_id:{$in: {User.friends}}}, function(err, msg) {
-    console.log(err);
-    (err ? res.status(500).send(err) : res.status(200).send(msg));
+function readAll(req, res, err) {var id = mongoose.Types.ObjectId(req.user.id);
+  User.findOne({_id: id}, function(err, user) {
+    if (err) res.status(500).send(err);
+    Message.find({authorId:{$in: user.friends}}, function(err, msg) {
+      console.log(msg);
+      (err ? res.status(500).send(err) : res.status(200).send(msg));
+    });
   });
 }
 

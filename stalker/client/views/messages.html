@@ -1,12 +1,8 @@
 <h1>Message List</h1>
 <table class="table table-bordered">
-    <tr>
-        <th>Title</th>
-        <th>Text</th>
-        <th>Actions</th>
-    </tr>
+
     <tr ng-repeat="message in msg.messages">
-        <td>{{message.title}}</td>
+        <td>{{message.author}}</td>
         <td>{{message.text}}</td>
         <td>
             <button class="btn" ng-click="msg.removeMessage(message._id)">

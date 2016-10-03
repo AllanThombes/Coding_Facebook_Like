@@ -17,6 +17,8 @@ var User = require("./models/user.js");
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var messages = require('./routes/messages');
+var albums = require('./routes/albums');
 
 mongoose.connect(config.db.mongodb);
 console.log("Connected to " + config.db.mongodb)
@@ -51,8 +53,10 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use('/users', users);
+app.use('/messages', messages);
+app.use('/albums', albums);
 app.use('/', routes);
-// app.use('/user', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

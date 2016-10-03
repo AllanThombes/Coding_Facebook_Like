@@ -34,51 +34,6 @@ router.get('/user/status', function(req, res) {
     });
 });
 
-/* User */
-router.get('/users', function(req, res, next) {
-  ctrlUsers.usersReadAll(req, res);
-});
-router.put('/users/:userid', function(req, res, next) {
-  ctrlUsers.usersUpdateOne(req, res);
-});
-router.delete('/users/:userid', function(req, res, next) {
-  ctrlUsers.usersDeleteOne(req, res);
-});
-router.get('/profile', function(req, res, next) {
-  ctrlUsers.usersShowOne(req, res);
-});
-router.get('/listfriend', function(req, res, next) {
-  ctrlUsers.usersFindFriend(req, res);
-});
-router.get('/listasking', function(req, res, next) {
-  ctrlUsers.usersAskFriend(req, res);
-});
-router.post('/user/askfriend/:id', function(req, res, next) {
-  ctrlUsers.askfriend(req, res);
-});
-router.post('/user/addfriend/:id', function(req, res, next) {
-  ctrlUsers.addfriend(req, res);
-});
-router.post('/user/removefriend/:id', function(req, res, next) {
-  ctrlUsers.unFriend(req, res);
-});
-// router.post('/listblock', function(req, res, next) {
-//   ctrlUsers.userListBlock(req, res);
-// });
-
-/* messages */
-router.get('/messages', function(req, res) {
-    ctrlMsgs.readAll(req, res);
-});
-router.post('/messages', function(req, res) {
-    ctrlMsgs.createOne(req, res);
-});
-router.post('/messages/:id', function(req, res) {
-    ctrlMsgs.createOne(req, res);
-});
-router.delete('/messages/:id', function(req, res) {
-    ctrlMsgs.deleteOne(req, res);
-});
 
 /* GET home page. */
 router.get('*', function(req, res, next) {

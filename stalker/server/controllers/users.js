@@ -14,10 +14,7 @@ function usersReadAll (req, res, err) {
 
 function usersAskFriend (req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
-  console.log(id);
   User.aggregate([{$lookup: {from: "users", localField: "_id", foreignField: "askFriends", as: "asking"}}, {$match: { "asking._id": id }}], function (err, asking) {
-    console.log("err " + err + " datas "+ asking);
-    console.log(asking);
     (err ? res.send(err) : res.json(asking));
     });
 }
@@ -25,7 +22,6 @@ function usersAskFriend (req, res, err) {
 function usersFindFriend (req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
   User.aggregate([{$lookup: {from: "users", localField: "_id", foreignField: "friends", as: "friendlings"}}, {$match: { "friendlings._id": id }}], function (err, friendlings) {
-    console.log("err " + err + " datas "+ friendlings);
       (err ? res.send(err) : res.json(friendlings));
     });
 }

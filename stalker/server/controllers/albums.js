@@ -1,14 +1,15 @@
 var path = require('path');
 var config = require(path.join(appRoot, "server", "config", "config.js"));
 var User = require(path.join(appRoot, "server", "models", "user.js"));
-var Message = require(path.join(appRoot, "server", "models", "message.js"));
+var Album = require(path.join(appRoot, "server", "models", "album.js"));
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 function readAll(req, res, err) {var id = mongoose.Types.ObjectId(req.user.id);
   User.findOne({_id: id}, function(err, user) {
     if (err) res.status(500).send(err);
-    Message.find({$or: [{authorId:{$in: user.friends}},{authorId: req.user.id}]}, function(err, msg) {
+    Album.find({authorId:{$in: user.friends}}, function(err, msg) {
+      console.log(msg);
       (err ? res.status(500).send(err) : res.status(200).send(msg));
     });
   });
@@ -17,7 +18,7 @@ function readAll(req, res, err) {var id = mongoose.Types.ObjectId(req.user.id);
 
 function createOne(req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
-  Message.create({text: req.body.text, authorId: id}, function(err) {
+  Album.create({title: req.body.title, description: req.body.description, authorId: id}, function(err) {
     console.log(err);
       (err ? res.status(500).send(err) : res.status(200).send());
   });
@@ -25,12 +26,12 @@ function createOne(req, res, err) {
 
 function updateOne(req, res, err) {
   var id = mongoose.Types.ObjectId(req.params.id)
-  Message.findOne({_id: id}, function(err, message) {
-    if (err || req.user.id != message.authorId) {
+  Album.findOne({_id: id}, function(err, album) {
+    if (err || req.user.id != album.authorId) {
       res.status(500).send(err);
     }
     else
-      Message.update({_id: id}, {title: req.body.title, text: req.body.text, updatedAt: Date.now}, function(err) {
+      Album.update({_id: id}, {title: req.body.title, description: req.body.description, updatedAt: Date.now}, function(err) {
         (err ? res.status(500).send(err) : res.status(200).send());
       });
   });
@@ -38,14 +39,12 @@ function updateOne(req, res, err) {
 
 function deleteOne(req, res, err) {
   var id = mongoose.Types.ObjectId(req.params.id)
-  Message.findOne({_id: id}, function(err, message) {
-    if (err || req.user.id != message.authorId) {
-      console.log(message);
-      console.log(req.user.id + " "+ message.authorId);
+  Album.findOne({_id: id}, function(err, album) {
+    if (err || req.user.id != album.authorId) {
       res.status(500).send(err);
     }
     else
-      Message.remove({_id: id}, function(err) {
+      Album.remove({_id: id}, function(err) {
         console.log(err);
         (err ? res.status(500).send(err) : res.status(200).send());
       });

@@ -12,6 +12,16 @@ function usersReadAll (req, res, err) {
   });
 }
 
+function usersAllOthers(req, res, err) {
+  var id = mongoose.Types.ObjectId(req.user.id);
+  User.findOne({_id: id}, function(err, user) {
+    if (err) res.status(500).send(err);
+    User.find({$and: [{authorId:{$nin: user.friends}},{$nin: user.askFriends}]}, function(err, msg) {
+      (err ? res.status(500).send(err) : res.status(200).send(msg));
+    });
+  });
+}
+
 function usersAskFriend (req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
   User.aggregate([{$lookup: {from: "users", localField: "_id", foreignField: "askFriends", as: "asking"}}, {$match: { "asking._id": id }}], function (err, asking) {
@@ -70,7 +80,10 @@ function addFriend (req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
     var idfriend = mongoose.Types.ObjectId(req.params.id);
   User.update({"_id": id}, {$push: {"friends": idfriend}}, function (err) {
-    (err ? res.send(err) : res.status(200).send());
+    if(err) res.send(err)
+    User.update({"_id": idfriend }, {$push: {"friends": id}}, function (err) {
+      (err ? res.send(err) : res.status(200).send());
+    });
   });
 }
 
@@ -78,7 +91,10 @@ function unFriend (req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
   var idfriend = mongoose.Types.ObjectId(req.user.id);
   User.update({"_id": id}, {$pull: {"friend": idfriend}}, function (err) {
-    (err ? res.send(err) : res.status(200).send());
+    if(err) res.send(err)
+    User.update({"_id": id }, {$pull: {"friends": idfriend}}, function (err) {
+      (err ? res.send(err) : res.status(200).send());
+    });
   });
 }
 

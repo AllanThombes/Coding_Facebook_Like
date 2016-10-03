@@ -13,7 +13,6 @@ angular.module('app')
     $http.get('/messages/messages')
     .then(function(res) {
       _this.messages = res.data;
-      console.log(res.data);
     });
   };
 
@@ -76,6 +75,15 @@ angular.module('app')
 
   this.getAskings();
 
+  this.getUsers = function() {
+    $http.get('/users/users')
+    .then(function(res) {
+      _this.listOthers = res.data;
+    });
+  };
+
+  this.getUsers();
+
   this.getMessages = function() {
     $http.get('/messages/messages')
     .then(function(res) {
@@ -108,6 +116,52 @@ angular.module('app')
     });
     this.newmsg = {};
   };
+
+}])
+.controller('logoutController',
+['$scope', '$location', 'AuthService',
+function ($scope, $location, AuthService) {
+
+  $scope.logout = function () {
+    AuthService.logout()
+    .then(function () {
+      $location.path('/login');
+    });
+
+  };
+  $scope.logout();
+}])
+.controller('otherProfileController', ["$scope", "$http", "$location", "AuthService", function($scope, $http, $location, AuthService) {
+  var _this = this;
+  if (!AuthService.isLoggedIn()) $location.path("/login");
+  $scope.main.title = 'Profile';
+
+  this.getUser = function() {
+    $http.get('/users/userprofile')
+    .then(function(res) {
+      _this.user = res.data;
+    });
+  };
+
+  this.getUser();
+
+  this.getUsers = function() {
+    $http.get('/users/users')
+    .then(function(res) {
+      _this.listOthers = res.data;
+    });
+  };
+
+  this.getUsers();
+
+  this.getMessages = function() {
+    $http.get('/messages/messages')
+    .then(function(res) {
+      _this.messages = res.data;
+    });
+  };
+
+  this.getMessages();
 
 }])
 .controller('logoutController',

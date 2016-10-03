@@ -25,13 +25,13 @@ router.get('/listfriend', function(req, res, next) {
 router.get('/listasking', function(req, res, next) {
   ctrlUsers.usersAskFriend(req, res);
 });
-router.post('/user/askfriend/:id', function(req, res, next) {
+router.get('/user/askfriend/:id', function(req, res, next) {
   ctrlUsers.askfriend(req, res);
 });
-router.post('/user/addfriend/:id', function(req, res, next) {
+router.get('/user/addfriend/:id', function(req, res, next) {
   ctrlUsers.addfriend(req, res);
 });
-router.post('/user/removefriend/:id', function(req, res, next) {
+router.get('/user/removefriend/:id', function(req, res, next) {
   ctrlUsers.unFriend(req, res);
 });
 

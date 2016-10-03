@@ -20,12 +20,13 @@
       <ul class="list-group">
         <li ng-repeat="fan in profile.listAskingFriends" class="list-group-item"><div class="chip">{{ fan.username }}</div>
         <div class="chip">Accept</div>
+        <div class="chip">Make him/her cry</div>
         </li>
       </ul>
     </div>
   </div>
 </div>
-<div class="col s12 m7">
+<div class="col-lg-5">
     <h3 class="panel-title">Who am I :</h3>
     <div class="card horizontal">
       <div class="card-image">
@@ -47,15 +48,27 @@
       </div>
     </div>
 </div>
-<div class="col s9 m7">
+<div class=" col-lg-2">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">All other users :</h3>
+    </div>
+    <ul class="list-group">
+      <li ng-repeat="other in profile.listOthers" class="list-group-item"><div class="chip"><a href="/profile/{{ other._id }}">{{ other.username }}</a></div>
+      <div class="chip"><a href="/askfriend/{{ other._id }}">Ask for friend</a></div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="col m5">
   <table class="table table-bordered">
       <tr>
-          <th>Title</th>
+          <th>Author</th>
           <th>Text</th>
           <th>Actions</th>
       </tr>
       <tr ng-repeat="message in profile.messages">
-          <td>{{message.title}}</td>
+          <td>{{message.authorId}}</td>
           <td>{{message.text}}</td>
           <td>
               <button class="btn" ng-click="profile.removeMessage(message._id)">

@@ -7,6 +7,16 @@ angular.module('app')
     controller: "homeController as msg",
     access: {restricted: true}
   })
+  .when("/askfriend/:id", {
+    controller: "otherProfileController as otherProfile",
+      templateUrl: "/views/otherProfile.html",
+    access: {restricted: true}
+  })
+  .when("/profile/:id", {
+    controller: "otherProfileController as otherProfile",
+      templateUrl: "/views/otherProfile.html",
+    access: {restricted: true}
+  })
   .when("/profile", {
     controller: "profileController as profile",
       templateUrl: "/views/profile.html",

@@ -25,8 +25,7 @@
       <h3 class="panel-title">All other users :</h3>
     </div>
     <ul class="list-group">
-      <li ng-repeat="other in otherProfile.listOthers" class="list-group-item"><div class="chip">{{ other.username }}</div>
-      <div class="chip"><a href="/askfriend/{{ other.id }}">Ask for friend</a></div>
+      <li ng-repeat="other in otherProfile.listOthers" class="list-group-item"><div class="chip"><a href="/profile/{{ other._id }}">{{ other.username }}</a></div>
       </li>
     </ul>
   </div>

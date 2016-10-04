@@ -2,7 +2,7 @@
 <table class="table table-bordered">
 
     <tr ng-repeat="message in msg.messages">
-        <td>{{message.authorId}}</td>
+        <td>{{message.authorId.username}}<br>{{message.createdAt | date:'medium'}}</td>
         <td>{{message.text}}</td>
         <td>
             <button class="btn" ng-click="msg.removeMessage(message._id)">

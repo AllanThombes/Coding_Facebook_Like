@@ -9,7 +9,22 @@ function readAll(req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
   User.findOne({_id: id}, function(err, user) {
     if (err) res.status(500).send(err);
-    Message.find({$or: [{authorId:{$in: user.friends}},{authorId: req.user.id}]}, function(err, msg) {
+    Message.find({$or: [{authorId:{$in: user.friends}},{authorId: req.user.id}]})
+            .populate('authorId','username').sort({createdAt: 'desc'})
+            .exec(function(err, msg) {
+      (err ? res.status(500).send(err) : res.status(200).send(msg));
+    });
+  });
+}
+
+function readUserAll(req, res, err) {
+  var id = mongoose.Types.ObjectId(req.user.id);
+  var userid = mongoose.Types.ObjectId(req.params.id);
+  User.findOne({_id: id}, function(err, user) {
+    if (err) res.status(500).send(err); 
+    Message.find({$or: [{authorId:{$in: user.friends}},{authorId: req.user.id}]})
+            .populate('authorId','username').sort({createdAt: 'desc'})
+            .exec(function(err, msg) {
       (err ? res.status(500).send(err) : res.status(200).send(msg));
     });
   });

@@ -10,6 +10,9 @@ var ctrlUsers = require(path.join(appRoot, "server", "controllers", "users.js"))
 router.get('/users', function(req, res, next) {
   ctrlUsers.usersAllOthers(req, res);
 });
+router.get('/allusers', function(req, res, next) {
+  ctrlUsers.usersReadAll(req, res);
+});
 router.put('/users/:userid', function(req, res, next) {
   ctrlUsers.usersUpdateOne(req, res);
 });
@@ -17,6 +20,9 @@ router.delete('/users/:userid', function(req, res, next) {
   ctrlUsers.usersDeleteOne(req, res);
 });
 router.get('/userprofile', function(req, res, next) {
+  ctrlUsers.usersShowOne(req, res);
+});
+router.get('/userprofile/:id', function(req, res, next) {
   ctrlUsers.usersShowOne(req, res);
 });
 router.get('/listfriend', function(req, res, next) {

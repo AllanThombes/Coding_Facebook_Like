@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 
 
 function usersReadAll (req, res, err) {
-  User.find( function(err, users) {
+  User.find({_id:{$nin: req.user.id}}, function(err, users) {
     (err ? res.send(err) : res.json(users));
   });
 }
@@ -44,7 +44,10 @@ function usersFindFriend (req, res, err) {
 }
 
 function usersShowOne (req, res, err) {
-  var id = mongoose.Types.ObjectId(req.user.id);
+  if (req.params.id && req.params.id != 'undefined')
+    var id = mongoose.Types.ObjectId(req.params.id);
+  else
+    var id = mongoose.Types.ObjectId(req.user.id);
   User.findOne({_id: id}, function(err, user) {
     (err ? res.send(err) : res.json(user));
   });
@@ -118,9 +121,9 @@ function reject (req, res, err) {
 function unFriend (req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
   var idfriend = mongoose.Types.ObjectId(req.params.id);
-  User.update({"_id": id}, {$pull: {"friend": idfriend}}, function (err) {
+  User.update({"_id": id}, {$pull: {"friends": idfriend}}, function (err) {
     if(err) res.send(err)
-    User.update({"_id": id }, {$pull: {"friends": idfriend}}, function (err) {
+    User.update({"_id": idfriend }, {$pull: {"friends": id}}, function (err) {
       (err ? res.send(err) : res.status(200).send());
     });
   });
@@ -133,6 +136,7 @@ module.exports.usersFriendAsk = usersFriendAsk;
 module.exports.usersFindFriend = usersFindFriend;
 module.exports.askFriend = askFriend;
 module.exports.addFriend = addFriend;
+module.exports.unFriend = unFriend;
 module.exports.reject = reject;
 module.exports.usersUpdateOne = usersUpdateOne;
 module.exports.usersDeleteOne = usersDeleteOne;

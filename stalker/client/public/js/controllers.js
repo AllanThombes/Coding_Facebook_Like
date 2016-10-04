@@ -118,6 +118,14 @@ angular.module('app')
     });
   };
 
+  this.unFriend = function(id) {
+    $http.delete('/users/removefriend/' + id)
+    .then(function(res) {
+      _this.getFriends();
+      _this.getUsers();
+    });
+  };
+
   this.getMessages = function() {
     $http.get('/messages/messages')
     .then(function(res) {
@@ -165,13 +173,13 @@ function ($scope, $location, AuthService) {
   };
   $scope.logout();
 }])
-.controller('otherProfileController', ["$scope", "$http", "$location", "AuthService", function($scope, $http, $location, AuthService) {
+.controller('otherProfileController', ["$scope", "$http", "$location", "AuthService", '$routeParams', function($scope, $http, $location, AuthService, $routeParams) {
   var _this = this;
   if (!AuthService.isLoggedIn()) $location.path("/login");
   $scope.main.title = 'Profile';
 
   this.getUser = function() {
-    $http.get('/users/userprofile')
+    $http.get('/users/userprofile/'+ $routeParams.id)
     .then(function(res) {
       _this.user = res.data;
     });
@@ -180,7 +188,7 @@ function ($scope, $location, AuthService) {
   this.getUser();
 
   this.getUsers = function() {
-    $http.get('/users/users')
+    $http.get('/users/allusers')
     .then(function(res) {
       _this.listOthers = res.data;
     });
@@ -188,14 +196,14 @@ function ($scope, $location, AuthService) {
 
   this.getUsers();
 
-  this.getMessages = function() {
-    $http.get('/messages/messages')
+  this.getUserMessages = function() {
+    $http.get('/messages/usermessages'+ $routeParams.id)
     .then(function(res) {
       _this.messages = res.data;
     });
   };
 
-  this.getMessages();
+  this.getUserMessages();
 
 }])
 .controller('logoutController',

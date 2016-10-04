@@ -6,7 +6,7 @@
       <h3 class="panel-title">Friends :</h3>
     </div>
     <ul class="list-group">
-      <li ng-repeat="friend in profile.listFriends" class="list-group-item"><div class="chip"><a href="/profile/{{ friend._id }}">{{ friend.username }}</a></div><div class="chip">Un-friend</div></li>
+      <li ng-repeat="friend in profile.listFriends" class="list-group-item"><div class="chip"><a href="/profile/{{ friend._id }}">{{ friend.username }}</a></div><div class="chip" ng-click="profile.unFriend(friend._id)">Un-friend</div></li>
     </ul>
   </div>
   <div class="panel panel-warning">
@@ -77,7 +77,7 @@
           <th>Actions</th>
       </tr>
       <tr ng-repeat="message in profile.messages">
-          <td>{{message.authorId}}</td>
+          <td>{{message.authorId.username}}<br>{{message.createdAt | date:'medium'}}</td>
           <td>{{message.text}}</td>
           <td>
               <button class="btn" ng-click="profile.removeMessage(message._id)">
@@ -90,4 +90,11 @@
 
       </tr>
   </table>
+  <form ng-submit="profile.sendMessage()">
+      <div class="form-group">
+          <label for="text">Text</label>
+          <textarea class="form-control" id="text" placeholder="Message" ng-model="profile.newmsg.text"></textarea>
+      </div>
+      <button type="submit" class="btn btn-default">Send Message</button>
+  </form>
 </div>

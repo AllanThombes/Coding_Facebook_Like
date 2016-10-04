@@ -9,6 +9,9 @@ var ctrlMsgs = require(path.join(appRoot, "server", "controllers", "messages.js"
 router.get('/messages', function(req, res) {
     ctrlMsgs.readAll(req, res);
 });
+router.get('/usermessages/:id', function(req, res) {
+    ctrlMsgs.readUserAll(req, res);
+});
 router.post('/messages', function(req, res) {
     ctrlMsgs.createOne(req, res);
 });

@@ -75,6 +75,15 @@ angular.module('app')
 
   this.getAskings();
 
+  this.getAsked = function() {
+    $http.get('/users/listasked')
+    .then(function(res) {
+      _this.listAskedFriends = res.data;
+    });
+  };
+
+  this.getAsked();
+
   this.getUsers = function() {
     $http.get('/users/users')
     .then(function(res) {
@@ -88,6 +97,8 @@ angular.module('app')
     console.log(id);
     $http.put('/users/askfriend/' + id)
     .then(function(res) {
+      _this.getUsers();
+      _this.getAsked();
     });
   };
 

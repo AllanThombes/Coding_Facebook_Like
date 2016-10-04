@@ -25,6 +25,9 @@ router.get('/listfriend', function(req, res, next) {
 router.get('/listasking', function(req, res, next) {
   ctrlUsers.usersAskFriend(req, res);
 });
+router.get('/listasked', function(req, res, next) {
+  ctrlUsers.usersFriendAsk(req, res);
+});
 router.put('/askfriend/:id', function(req, res, next) {
   ctrlUsers.askFriend(req, res);
 });

@@ -24,6 +24,15 @@
         </li>
       </ul>
     </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Friendship asked:</h3>
+      </div>
+      <ul class="list-group">
+        <li ng-repeat="stalk in profile.listAskedFriends" class="list-group-item"><div class="chip"><a href="/profile/{{ stalk._id }}">{{ stalk.username }}</a></div>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 <div class="col-lg-5">

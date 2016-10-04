@@ -84,6 +84,29 @@ angular.module('app')
 
   this.getUsers();
 
+  this.askFriend = function(id) {
+    console.log(id);
+    $http.put('/users/askfriend/' + id)
+    .then(function(res) {
+    });
+  };
+
+  this.reject = function(id) {
+    $http.put('/users/rejectask/' + id)
+    .then(function(res) {
+      _this.getUsers();
+      _this.getAskings();
+    });
+  };
+
+  this.addFriend = function(id) {
+    $http.put('/users/addfriend/' + id)
+    .then(function(res) {
+      _this.getFriends();
+      _this.getAskings();
+    });
+  };
+
   this.getMessages = function() {
     $http.get('/messages/messages')
     .then(function(res) {

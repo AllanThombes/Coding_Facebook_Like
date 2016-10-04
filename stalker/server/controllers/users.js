@@ -16,8 +16,8 @@ function usersAllOthers(req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
   User.findOne({_id: id}, function(err, user) {
     if (err) res.status(500).send(err);
-    User.find({$and: [{authorId:{$nin: user.friends}},{$nin: user.askFriends}]}, function(err, msg) {
-      (err ? res.status(500).send(err) : res.status(200).send(msg));
+    User.find({$and: [{_id:{$nin: user.friends}},{_id:{$nin: user.askFriends}}]}, function(err, usrs) {
+      (err ? res.status(500).send(err) : res.status(200).send(usrs));
     });
   });
 }
@@ -70,8 +70,8 @@ function usersDeleteOne (req, res, err) {
 
 function askFriend (req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
-    var idfriend = mongoose.Types.ObjectId(req.params.id);
-  User.update({"_id": id}, {$push: {"askFriends": idfriend}}, function (err) {
+  var idfriend = mongoose.Types.ObjectId(req.params.id);
+  User.update({"_id": idfriend}, {$push: {"askFriends": id}}, function (err) {
     (err ? res.send(err) : res.status(200).send());
   });
 }
@@ -82,14 +82,25 @@ function addFriend (req, res, err) {
   User.update({"_id": id}, {$push: {"friends": idfriend}}, function (err) {
     if(err) res.send(err)
     User.update({"_id": idfriend }, {$push: {"friends": id}}, function (err) {
-      (err ? res.send(err) : res.status(200).send());
+      if(err) res.send(err);
+      User.update({"_id": id }, {$pull: {"askFriends": idfriend}}, function (err) {
+        (err ? res.send(err) : res.status(200).send());
+      });
     });
+  });
+}
+
+function reject (req, res, err) {
+  var id = mongoose.Types.ObjectId(req.user.id);
+  var idfriend = mongoose.Types.ObjectId(req.params.id);
+  User.update({"_id": id}, {$pull: {"askFriends": idfriend}}, function (err) {
+    (err ? res.send(err) : res.status(200).send());
   });
 }
 
 function unFriend (req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
-  var idfriend = mongoose.Types.ObjectId(req.user.id);
+  var idfriend = mongoose.Types.ObjectId(req.params.id);
   User.update({"_id": id}, {$pull: {"friend": idfriend}}, function (err) {
     if(err) res.send(err)
     User.update({"_id": id }, {$pull: {"friends": idfriend}}, function (err) {
@@ -99,10 +110,12 @@ function unFriend (req, res, err) {
 }
 
 module.exports.usersReadAll = usersReadAll;
+module.exports.usersAllOthers = usersAllOthers;
 module.exports.usersAskFriend = usersAskFriend;
 module.exports.usersFindFriend = usersFindFriend;
 module.exports.askFriend = askFriend;
 module.exports.addFriend = addFriend;
+module.exports.reject = reject;
 module.exports.usersUpdateOne = usersUpdateOne;
 module.exports.usersDeleteOne = usersDeleteOne;
 module.exports.usersShowOne = usersShowOne;

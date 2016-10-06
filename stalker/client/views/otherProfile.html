@@ -32,12 +32,7 @@
 </div>
 <div class="col m5">
   <table class="table table-bordered">
-      <tr>
-          <th>Author</th>
-          <th>Text</th>
-      </tr>
       <tr ng-repeat="message in otherProfile.messages">
-          <td>{{message.authorId}}</td>
           <td>{{message.text}}</td>
       </tr>
   </table>

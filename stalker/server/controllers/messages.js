@@ -12,7 +12,7 @@ function readAll(req, res, err) {
     Message.find({$or: [{authorId:{$in: user.friends}},{authorId: req.user.id}]})
             .populate('authorId','username').sort({createdAt: 'desc'})
             .exec(function(err, msg) {
-      (err ? res.status(500).send(err) : res.status(200).send(msg));
+      (err ? res.status(500).send(err) : res.send(msg));
     });
   });
 }
@@ -20,14 +20,13 @@ function readAll(req, res, err) {
 function readUserAll(req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
   var userid = mongoose.Types.ObjectId(req.params.id);
-  User.findOne({_id: id}, function(err, user) {
-    if (err) res.status(500).send(err); 
-    Message.find({$or: [{authorId:{$in: user.friends}},{authorId: req.user.id}]})
-            .populate('authorId','username').sort({createdAt: 'desc'})
-            .exec(function(err, msg) {
-      (err ? res.status(500).send(err) : res.status(200).send(msg));
+  User.findOne({_id: id}, {friends: 1}, function(err, user) {
+    if (err) res.status(500).send(err);
+     for u in user
+    Message.find({authorId: userid}, function(err, msg) {
+      (err ? res.send(err) : res.send(msg));
     });
-  });
+  })
 }
 
 
@@ -69,5 +68,6 @@ function deleteOne(req, res, err) {
 }
 
 module.exports.readAll = readAll;
+module.exports.readUserAll = readUserAll;
 module.exports.createOne = createOne;
 module.exports.deleteOne = deleteOne;

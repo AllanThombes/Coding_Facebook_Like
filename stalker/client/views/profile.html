@@ -79,7 +79,7 @@
       <tr ng-repeat="message in profile.messages">
           <td>{{message.authorId.username}}<br>{{message.createdAt | date:'medium'}}</td>
           <td>{{message.text}}</td>
-          <td>
+          <td ng-if="profile.user._id == message.authorId._id">
               <button class="btn" ng-click="profile.removeMessage(message._id)">
                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
               </button>

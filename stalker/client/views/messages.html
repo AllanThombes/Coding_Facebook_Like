@@ -4,14 +4,14 @@
     <tr ng-repeat="message in msg.messages">
         <td>{{message.authorId.username}}<br>{{message.createdAt | date:'medium'}}</td>
         <td>{{message.text}}</td>
-        <td>
+        <!-- <td>
             <button class="btn" ng-click="msg.removeMessage(message._id)">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </button>
             <button class="btn" ng-click="msg.editMessage(message._id)">
                 <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
             </button>
-        </td>
+        </td> -->
 
     </tr>
 </table>

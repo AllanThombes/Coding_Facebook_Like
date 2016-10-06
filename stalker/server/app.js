@@ -22,7 +22,7 @@ var albums = require('./routes/albums');
 
 mongoose.connect(config.db.mongodb);
 console.log("Connected to " + config.db.mongodb)
-// mongoose.set('debug',true);
+mongoose.set('debug',true);
 
 var app = express();
 

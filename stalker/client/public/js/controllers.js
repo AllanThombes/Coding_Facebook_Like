@@ -197,7 +197,7 @@ function ($scope, $location, AuthService) {
   this.getUsers();
 
   this.getUserMessages = function() {
-    $http.get('/messages/usermessages'+ $routeParams.id)
+    $http.get('/messages/usermessages/'+ $routeParams.id)
     .then(function(res) {
       _this.messages = res.data;
     });

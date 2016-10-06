@@ -22,10 +22,12 @@ function readUserAll(req, res, err) {
   var userid = mongoose.Types.ObjectId(req.params.id);
   User.findOne({_id: id}, {friends: 1}, function(err, user) {
     if (err) res.status(500).send(err);
-     for u in user
-    Message.find({authorId: userid}, function(err, msg) {
-      (err ? res.send(err) : res.send(msg));
-    });
+     for (key of user.friends) {
+       if (key == req.params.id)
+       Message.find({authorId: userid}, function(err, msg) {
+         (err ? res.send(err) : res.send(msg));
+       });
+     }
   })
 }
 

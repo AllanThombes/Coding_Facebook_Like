@@ -3,18 +3,18 @@ angular.module('app')
 
   $routeProvider
   .when("/", {
-    templateUrl: "/views/messages.html",
-    controller: "homeController as msg",
+    controller: "profileController as profile",
+    templateUrl: "/views/profile.html",
     access: {restricted: true}
   })
   .when("/profile/:id", {
     controller: "otherProfileController as otherProfile",
-      templateUrl: "/views/otherProfile.html",
+    templateUrl: "/views/otherProfile.html",
     access: {restricted: true}
   })
   .when("/profile", {
     controller: "profileController as profile",
-      templateUrl: "/views/profile.html",
+    templateUrl: "/views/profile.html",
     access: {restricted: true}
   })
   .when("/login", {

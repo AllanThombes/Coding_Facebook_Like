@@ -205,6 +205,18 @@ function ($scope, $location, AuthService) {
 
   this.getUserMessages();
 
+
+  this.sendMessage = function() {
+    if (!this.newmsg || !this.newmsg.text)
+    return ;
+    $http.post('/messages/messages/'+ $routeParams.id, this.newmsg)
+    .then(function() {
+      _this.getUserMessages();
+    });
+    this.newmsg = {};
+  };
+
+
 }])
 .controller('logoutController',
 ['$scope', '$location', 'AuthService',

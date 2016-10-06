@@ -5,11 +5,23 @@ var Message = require(path.join(appRoot, "server", "models", "message.js"));
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
+// function readAll(req, res, err) {
+//   var id = mongoose.Types.ObjectId(req.user.id);
+//   User.findOne({_id: id}, function(err, user) {
+//     if (err) res.status(500).send(err);
+//     Message.find({$or: [{authorId:{$in: user.friends}},{authorId: req.user.id}]})
+//             .populate('authorId','username').sort({createdAt: 'desc'})
+//             .exec(function(err, msg) {
+//       (err ? res.status(500).send(err) : res.send(msg));
+//     });
+//   });
+// }
+
 function readAll(req, res, err) {
   var id = mongoose.Types.ObjectId(req.user.id);
   User.findOne({_id: id}, function(err, user) {
     if (err) res.status(500).send(err);
-    Message.find({$or: [{authorId:{$in: user.friends}},{authorId: req.user.id}]})
+    Message.find({wallId: req.user.id})
             .populate('authorId','username').sort({createdAt: 'desc'})
             .exec(function(err, msg) {
       (err ? res.status(500).send(err) : res.send(msg));
@@ -24,8 +36,10 @@ function readUserAll(req, res, err) {
     if (err) res.status(500).send(err);
      for (key of user.friends) {
        if (key == req.params.id)
-       Message.find({authorId: userid}, function(err, msg) {
-         (err ? res.send(err) : res.send(msg));
+       Message.find({wallId: req.params.id})
+               .populate('authorId','username').sort({createdAt: 'desc'})
+               .exec(function(err, msg) {
+         (err ? res.status(500).send(err) : res.send(msg));
        });
      }
   })
@@ -33,8 +47,12 @@ function readUserAll(req, res, err) {
 
 
 function createOne(req, res, err) {
-  var id = mongoose.Types.ObjectId(req.user.id);
-  Message.create({text: req.body.text, authorId: id}, function(err) {
+  if (req.params.id && req.params.id != 'undefined')
+    var wallId = mongoose.Types.ObjectId(req.params.id);
+  else
+    var wallId = mongoose.Types.ObjectId(req.user.id);
+  var authId = mongoose.Types.ObjectId(req.user.id);
+  Message.create({text: req.body.text, authorId: authId, wallId: wallId}, function(err) {
     console.log(err);
       (err ? res.status(500).send(err) : res.status(200).send());
   });

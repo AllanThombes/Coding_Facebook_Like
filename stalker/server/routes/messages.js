@@ -12,10 +12,10 @@ router.get('/messages', function(req, res) {
 router.get('/usermessages/:id', function(req, res) {
     ctrlMsgs.readUserAll(req, res);
 });
-router.post('/messages', function(req, res) {
+router.post('/messages/:id', function(req, res) {
     ctrlMsgs.createOne(req, res);
 });
-router.post('/messages/:id', function(req, res) {
+router.post('/messages', function(req, res) {
     ctrlMsgs.createOne(req, res);
 });
 router.delete('/messages/:id', function(req, res) {

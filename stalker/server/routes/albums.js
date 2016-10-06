@@ -9,7 +9,7 @@ var ctrlAlbums = require(path.join(appRoot, "server", "controllers", "albums.js"
 router.get('/albums', function(req, res) {
     ctrlAlbums.readAll(req, res);
 });
-router.post('/albums', function(req, res) {
+router.post('/newAlbum', function(req, res) {
     ctrlAlbums.createOne(req, res);
 });
 router.post('/albums/:id', function(req, res) {

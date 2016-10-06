@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-  	"test": "make -f bin/Makefile"
+    "test": "make -f bin/Makefile"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.15.1",
+    "connect-multiparty": "^2.0.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.13.4",

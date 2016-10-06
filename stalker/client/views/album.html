@@ -1,0 +1,17 @@
+<div class="col-md-4">
+  <h1>Album creation</h1>
+  <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+  <form class="form" ng-submit="album.album_form()">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" class="form-control" name="username" ng-model="album.albumForm.title" required>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <input type="text" class="textarea" name="description" ng-model="album.albumForm.description">
+    </div>
+    <div>
+      <button type="submit" class="btn btn-default" ng-disabled="disabled">Create</button>
+    </div>
+  </form>
+</div>

@@ -160,6 +160,26 @@ angular.module('app')
   };
 
 }])
+.controller('albumController', ["$scope", "$http", "$location", "AuthService", function($scope, $http, $location, AuthService) {
+  var _this = this;
+
+  if (!AuthService.isLoggedIn()) $location.path("/login");
+
+  $scope.main.title = 'Album creation';
+
+  this.album_form = function() {
+    console.log(this.albumForm)
+    if (!this.albumForm || !this.albumForm.title)
+    return ;
+    console.log("yop");
+    $http.post('/albums/newAlbum', this.albumForm)
+    .then(function() {
+      $location.path('/addPics');
+    });
+    this.albumForm = {};
+  };
+
+}])
 .controller('logoutController',
 ['$scope', '$location', 'AuthService',
 function ($scope, $location, AuthService) {

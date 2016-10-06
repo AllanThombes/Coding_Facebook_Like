@@ -17,6 +17,16 @@ angular.module('app')
     templateUrl: "/views/profile.html",
     access: {restricted: true}
   })
+  .when("/album", {
+    controller: "albumController as album",
+    templateUrl: "/views/album.html",
+    access: {restricted: true}
+  })
+  .when("/upload", {
+    controller: "uploadController as upload",
+    templateUrl: "/views/addPics.html",
+    access: {restricted: true}
+  })
   .when("/login", {
     templateUrl: "/views/login.html",
     controller: "loginController as login",

@@ -5,13 +5,13 @@ var Album = require(path.join(appRoot, "server", "models", "album.js"));
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-function readAll(req, res, err) {var id = mongoose.Types.ObjectId(req.user.id);
-  User.findOne({_id: id}, function(err, user) {
-    if (err) res.status(500).send(err);
-    Album.find({authorId:{$in: user.friends}}, function(err, msg) {
-      console.log(msg);
-      (err ? res.status(500).send(err) : res.status(200).send(msg));
-    });
+function readAll(req, res, err) {
+  if (req.params.id && req.params.id != 'undefined')
+    var id = mongoose.Types.ObjectId(req.params.id);
+  else
+    var id = mongoose.Types.ObjectId(req.user.id);
+  Album.find({authorId: id}, function(err, msg) {
+    (err ? res.status(500).send(err) : res.status(200).send(msg));
   });
 }
 

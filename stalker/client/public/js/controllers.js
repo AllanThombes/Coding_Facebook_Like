@@ -135,6 +135,17 @@ angular.module('app')
 
   this.getMessages();
 
+
+  this.getAlbums = function() {
+    $http.get('/albums/albums')
+    .then(function(res) {
+      _this.listAlbums = res.data;
+    });
+  };
+
+  this.getAlbums();
+
+
   this.removeMessage = function(id) {
     $http.delete('/messages/messages/' + id)
     .then(function() {
@@ -174,7 +185,7 @@ angular.module('app')
     console.log("yop");
     $http.post('/albums/newAlbum', this.albumForm)
     .then(function() {
-      $location.path('/addPics');
+      $location.path('/upload');
     });
     this.albumForm = {};
   };
@@ -236,7 +247,36 @@ function ($scope, $location, AuthService) {
     this.newmsg = {};
   };
 
+  this.getAlbums = function() {
+    $http.get('/albums/albums/'+ $routeParams.id)
+    .then(function(res) {
+      _this.listAlbums = res.data;
+    });
+  };
 
+  this.getAlbums();
+
+
+}])
+.uploadController('MyCtrl', ['$scope', 'Upload', '$timeout', function ($scope, Upload, $timeout) {
+    $scope.uploadPic = function(file) {
+    file.upload = Upload.upload({
+      url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+      data: {username: $scope.username, file: file},
+    });
+
+    file.upload.then(function (response) {
+      $timeout(function () {
+        file.result = response.data;
+      });
+    }, function (response) {
+      if (response.status > 0)
+        $scope.errorMsg = response.status + ': ' + response.data;
+    }, function (evt) {
+      // Math.min is to fix IE which reports 200% sometimes
+      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+    });
+    }
 }])
 .controller('logoutController',
 ['$scope', '$location', 'AuthService',

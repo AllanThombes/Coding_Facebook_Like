@@ -6,6 +6,9 @@ var passport = require("passport");
 var ctrlAlbums = require(path.join(appRoot, "server", "controllers", "albums.js"));
 
 /* albums */
+router.get('/albums/:id', function(req, res) {
+    ctrlAlbums.readAll(req, res);
+});
 router.get('/albums', function(req, res) {
     ctrlAlbums.readAll(req, res);
 });
